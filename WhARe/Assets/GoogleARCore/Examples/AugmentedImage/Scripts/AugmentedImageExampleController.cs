@@ -34,7 +34,7 @@ namespace GoogleARCore.Examples.AugmentedImage
         /// <summary>
         /// A prefab for visualizing an AugmentedImage.
         /// </summary>
-        public AugmentedImageVisualizer AugmentedImageVisualizerPrefab;
+        public List<AugmentedImageVisualizer> prefabs = new List<AugmentedImageVisualizer>();
 
         /// <summary>
         /// The overlay containing the fit to scan user guide.
@@ -76,28 +76,29 @@ namespace GoogleARCore.Examples.AugmentedImage
                 {
                     // Create an anchor to ensure that ARCore keeps tracking this augmented image.
                     Anchor anchor = image.CreateAnchor(image.CenterPose);
-                    visualizer = (AugmentedImageVisualizer)Instantiate(AugmentedImageVisualizerPrefab, anchor.transform);
+                    visualizer = (AugmentedImageVisualizer)Instantiate(prefabs[image.DatabaseIndex], anchor.transform);
+                    visualizer.gameObject.SetActive(true);
                     visualizer.Image = image;
                     m_Visualizers.Add(image.DatabaseIndex, visualizer);
                 }
-                else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
-                {
-                    m_Visualizers.Remove(image.DatabaseIndex);
-                    GameObject.Destroy(visualizer.gameObject);
-                }
+                //else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
+                //{
+                //    m_Visualizers.Remove(image.DatabaseIndex);
+                //    GameObject.Destroy(visualizer.gameObject);
+                //}
             }
 
             // Show the fit-to-scan overlay if there are no images that are Tracking.
-            foreach (var visualizer in m_Visualizers.Values)
-            {
-                if (visualizer.Image.TrackingState == TrackingState.Tracking)
-                {
-                    FitToScanOverlay.SetActive(false);
-                    return;
-                }
-            }
+            //foreach (var visualizer in m_Visualizers.Values)
+            //{
+            //    if (visualizer.Image.TrackingState == TrackingState.Tracking)
+            //    {
+            //        FitToScanOverlay.SetActive(false);
+            //        return;
+            //    }
+            //}
 
-            FitToScanOverlay.SetActive(true);
+            //FitToScanOverlay.SetActive(true);
         }
     }
 }
