@@ -31,6 +31,11 @@ namespace GoogleARCore.Examples.AugmentedImage
     /// </summary>
     public class AugmentedImageExampleController : MonoBehaviour
     {
+        //public GameObject ARCoreDevice;
+        public ARCoreSessionConfig sessionConfig;
+        public AugmentedImageDatabase imageDatabase;
+        public Button resetButton;
+
         /// <summary>
         /// A prefab for visualizing an AugmentedImage.
         /// </summary>
@@ -46,11 +51,26 @@ namespace GoogleARCore.Examples.AugmentedImage
 
         private List<AugmentedImage> m_TempAugmentedImages = new List<AugmentedImage>();
 
+        public Text lblDrag;
+        public Text lblPointerDown;
+        public Text lblPointerUp;
+        public Text imageCount;
+
+        private List<Anchor> m_anchors = new List<Anchor>();
+
+        public void Start() {
+            //sessionConfig = ARCoreDevice.GetComponent<ARCoreSessionConfig>();
+            sessionConfig.AugmentedImageDatabase = imageDatabase;
+
+        }
+
+
         /// <summary>
         /// The Unity Update method.
         /// </summary>
         public void Update()
         {
+
             // Exit the app when the 'back' button is pressed.
             if (Input.GetKey(KeyCode.Escape))
             {
@@ -65,7 +85,8 @@ namespace GoogleARCore.Examples.AugmentedImage
 
             // Get updated augmented images for this frame.
             Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
-
+            
+            imageCount.text = "Images: " + m_TempAugmentedImages.Count;
             // Create visualizers and anchors for updated augmented images that are tracking and do not previously
             // have a visualizer. Remove visualizers for stopped images.
             foreach (var image in m_TempAugmentedImages)
@@ -76,29 +97,114 @@ namespace GoogleARCore.Examples.AugmentedImage
                 {
                     // Create an anchor to ensure that ARCore keeps tracking this augmented image.
                     Anchor anchor = image.CreateAnchor(image.CenterPose);
+                    m_anchors.Add(anchor);
+                    Debug.Log(">>> Created new anchor");
                     visualizer = (AugmentedImageVisualizer)Instantiate(prefabs[image.DatabaseIndex], anchor.transform);
                     visualizer.gameObject.SetActive(true);
                     visualizer.Image = image;
                     m_Visualizers.Add(image.DatabaseIndex, visualizer);
                 }
-                //else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
-                //{
-                //    m_Visualizers.Remove(image.DatabaseIndex);
-                //    GameObject.Destroy(visualizer.gameObject);
-                //}
+                else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
+                {
+                    m_Visualizers.Remove(image.DatabaseIndex);
+                    GameObject.Destroy(visualizer.gameObject);
+                }
             }
 
-            // Show the fit-to-scan overlay if there are no images that are Tracking.
-            //foreach (var visualizer in m_Visualizers.Values)
+            //Show the fit - to - scan overlay if there are no images that are Tracking.
+            foreach (var visualizer in m_Visualizers.Values)
+            {
+                if (visualizer.Image.TrackingState == TrackingState.Tracking)
+                {
+                    FitToScanOverlay.SetActive(false);
+                    resetButton.gameObject.SetActive(true);
+                    return;
+                }
+            }
+
+            FitToScanOverlay.SetActive(true);
+            resetButton.gameObject.SetActive(false);
+        }
+
+
+        public void ResetButtonClicked()
+        {
+            FitToScanOverlay.SetActive(true);
+            resetButton.gameObject.SetActive(false);
+            //foreach (var vizKVP in m_Visualizers)
             //{
-            //    if (visualizer.Image.TrackingState == TrackingState.Tracking)
+            //    GameObject.Destroy(vizKVP.Value.gameObject);
+            //}
+
+            //foreach (var img in m_TempAugmentedImages)
+            //{
+            //    var imgAnchors = img.GetAllAnchors();
+            //    foreach (var imgAnchor in imgAnchors)
             //    {
-            //        FitToScanOverlay.SetActive(false);
-            //        return;
+
             //    }
             //}
 
-            //FitToScanOverlay.SetActive(true);
+
+            //foreach (var anchor in m_anchors)
+            //{
+
+            //    anchor.detach();
+            //    //GameObject.Destroy(anchor.gameObject);
+            //}
+
+
+            //m_Visualizers.Clear();
+            //m_TempAugmentedImages.Clear();
+            //sessionConfig.AugmentedImageDatabase = null;
+            //sessionConfig.AugmentedImageDatabase = imageDatabase;
+
+
+            var session = GameObject.Find("ARCore Device").GetComponent<ARCoreSession>();
+            
+            DestroyImmediate(session);
+            
+
+            foreach (var anch in m_anchors)
+            {
+                Destroy(anch);
+            }
+            
+            var device = GameObject.Find("ARCore Device");
+            session = device.GetComponent<ARCoreSession>();
+
+            if (session == null)
+            {
+                session = device.AddComponent<ARCoreSession>();
+                session.SessionConfig = sessionConfig;
+                session.enabled = true;
+            }
+
+
+
+            Debug.Log("Pointer down");
+            lblPointerDown.gameObject.SetActive(true);
+
+            lblPointerUp.gameObject.SetActive(false);
+            lblDrag.gameObject.SetActive(false);
+        }
+
+        public void ResetButtonClicked2()
+        {
+            Debug.Log("Pointer up");
+            lblPointerUp.gameObject.SetActive(true);
+
+            lblPointerDown.gameObject.SetActive(false);
+            lblDrag.gameObject.SetActive(false);
+        }
+
+        public void ResetButtonDragged()
+        {
+            Debug.Log("dragged");
+            lblDrag.gameObject.SetActive(true);
+
+            lblPointerDown.gameObject.SetActive(false);
+            lblPointerUp.gameObject.SetActive(false);
         }
     }
 }
