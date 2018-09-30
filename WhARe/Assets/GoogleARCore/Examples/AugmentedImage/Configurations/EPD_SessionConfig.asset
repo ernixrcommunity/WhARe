@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: EPD_SessionConfig
   m_EditorClassIdentifier: 
   MatchCameraFramerate: 1
-  PlaneFindingMode: 0
+  PlaneFindingMode: 1
   EnableLightEstimation: 0
   EnableCloudAnchor: 0
-  AugmentedImageDatabase: {fileID: 0}
-  CameraFocusMode: 0
+  AugmentedImageDatabase: {fileID: 11400000, guid: 6fdac8d3056b44a40a6c49e8f8825d46,
+    type: 2}
+  CameraFocusMode: 1

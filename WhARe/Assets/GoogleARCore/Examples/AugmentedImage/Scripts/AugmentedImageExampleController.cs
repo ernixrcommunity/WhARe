@@ -21,8 +21,8 @@
 namespace GoogleARCore.Examples.AugmentedImage
 {
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
     using GoogleARCore;
+    using GoogleARCore.Examples.Common;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -31,10 +31,13 @@ namespace GoogleARCore.Examples.AugmentedImage
     /// </summary>
     public class AugmentedImageExampleController : MonoBehaviour
     {
-        //public GameObject ARCoreDevice;
+        public GameObject planeGenerator;
+        public Shader occlusionShader;
+        public Shader planeFindingShader;
         public ARCoreSessionConfig sessionConfig;
         public AugmentedImageDatabase imageDatabase;
         public Button resetButton;
+        public GameObject detectedPlaneVisualizerPrefab;
 
         /// <summary>
         /// A prefab for visualizing an AugmentedImage.
@@ -59,7 +62,6 @@ namespace GoogleARCore.Examples.AugmentedImage
         private List<Anchor> m_anchors = new List<Anchor>();
 
         public void Start() {
-            //sessionConfig = ARCoreDevice.GetComponent<ARCoreSessionConfig>();
             sessionConfig.AugmentedImageDatabase = imageDatabase;
 
         }
@@ -85,8 +87,10 @@ namespace GoogleARCore.Examples.AugmentedImage
 
             // Get updated augmented images for this frame.
             Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
-            
             imageCount.text = "Images: " + m_TempAugmentedImages.Count;
+            if(planeGenerator != null) //may be null due to known issue: after resetting ARCore session, Plane Generator stops working, so we set it to null and only use it the first time.
+               planeGenerator.SendMessage("ChangeShader", occlusionShader);
+
             // Create visualizers and anchors for updated augmented images that are tracking and do not previously
             // have a visualizer. Remove visualizers for stopped images.
             foreach (var image in m_TempAugmentedImages)
@@ -98,7 +102,7 @@ namespace GoogleARCore.Examples.AugmentedImage
                     // Create an anchor to ensure that ARCore keeps tracking this augmented image.
                     Anchor anchor = image.CreateAnchor(image.CenterPose);
                     m_anchors.Add(anchor);
-                    Debug.Log(">>> Created new anchor");
+
                     visualizer = (AugmentedImageVisualizer)Instantiate(prefabs[image.DatabaseIndex], anchor.transform);
                     visualizer.gameObject.SetActive(true);
                     visualizer.Image = image;
@@ -111,7 +115,7 @@ namespace GoogleARCore.Examples.AugmentedImage
                 }
             }
 
-            //Show the fit - to - scan overlay if there are no images that are Tracking.
+            //Show the fit-to-scan overlay if there are no images that are Tracking.
             foreach (var visualizer in m_Visualizers.Values)
             {
                 if (visualizer.Image.TrackingState == TrackingState.Tracking)
@@ -124,6 +128,9 @@ namespace GoogleARCore.Examples.AugmentedImage
 
             FitToScanOverlay.SetActive(true);
             resetButton.gameObject.SetActive(false);
+
+            if(planeGenerator != null)  
+                planeGenerator.SendMessage("ChangeShader",planeFindingShader);
         }
 
 
@@ -131,80 +138,36 @@ namespace GoogleARCore.Examples.AugmentedImage
         {
             FitToScanOverlay.SetActive(true);
             resetButton.gameObject.SetActive(false);
-            //foreach (var vizKVP in m_Visualizers)
-            //{
-            //    GameObject.Destroy(vizKVP.Value.gameObject);
-            //}
-
-            //foreach (var img in m_TempAugmentedImages)
-            //{
-            //    var imgAnchors = img.GetAllAnchors();
-            //    foreach (var imgAnchor in imgAnchors)
-            //    {
-
-            //    }
-            //}
-
-
-            //foreach (var anchor in m_anchors)
-            //{
-
-            //    anchor.detach();
-            //    //GameObject.Destroy(anchor.gameObject);
-            //}
-
-
-            //m_Visualizers.Clear();
-            //m_TempAugmentedImages.Clear();
-            //sessionConfig.AugmentedImageDatabase = null;
-            //sessionConfig.AugmentedImageDatabase = imageDatabase;
-
-
-            var session = GameObject.Find("ARCore Device").GetComponent<ARCoreSession>();
-            
-            DestroyImmediate(session);
-            
+            DestroyImmediate(planeGenerator); //destroying, because I couldn't get it to reset. It takes the session from an internal class
 
             foreach (var anch in m_anchors)
             {
                 Destroy(anch);
             }
-            
-            var device = GameObject.Find("ARCore Device");
-            session = device.GetComponent<ARCoreSession>();
 
+
+            //reset ARCore session (Destroy and recreate it)
+            m_Visualizers.Clear();
+            m_TempAugmentedImages.Clear();
+            var device = GameObject.Find("ARCore Device");
+            var session = device.GetComponent<ARCoreSession>();
+            DestroyImmediate(session);
+
+            //recreate ARCore session
+            session = device.GetComponent<ARCoreSession>();
             if (session == null)
             {
                 session = device.AddComponent<ARCoreSession>();
                 session.SessionConfig = sessionConfig;
                 session.enabled = true;
+
+                //TODO: find a way to reset the plane generator
+                //tried but couldn't get it to work. Session used in DetectedPlaneGenerator 
+                //comes from LifeCycleManager internal class and cannot be reset.
+                //var dpg = planeGenerator.AddComponent<DetectedPlaneGenerator>();
+                //dpg.DetectedPlanePrefab = detectedPlaneVisualizerPrefab;
+                //dpg.ARCoreDevice = device;
             }
-
-
-
-            Debug.Log("Pointer down");
-            lblPointerDown.gameObject.SetActive(true);
-
-            lblPointerUp.gameObject.SetActive(false);
-            lblDrag.gameObject.SetActive(false);
-        }
-
-        public void ResetButtonClicked2()
-        {
-            Debug.Log("Pointer up");
-            lblPointerUp.gameObject.SetActive(true);
-
-            lblPointerDown.gameObject.SetActive(false);
-            lblDrag.gameObject.SetActive(false);
-        }
-
-        public void ResetButtonDragged()
-        {
-            Debug.Log("dragged");
-            lblDrag.gameObject.SetActive(true);
-
-            lblPointerDown.gameObject.SetActive(false);
-            lblPointerUp.gameObject.SetActive(false);
         }
     }
 }
