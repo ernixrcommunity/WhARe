@@ -24,6 +24,7 @@ namespace GoogleARCore.Examples.AugmentedImage
     using GoogleARCore;
     using GoogleARCore.Examples.Common;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using UnityEngine.UI;
 
     /// <summary>
@@ -135,6 +136,18 @@ namespace GoogleARCore.Examples.AugmentedImage
 
 
         public void ResetButtonClicked()
+        {
+            //workaround because the ARCore session could not be reloaded cleanly.
+            //so we reload the entire Unity scene instead when we want to start a new navigation journey
+            ReloadCurrentScene();
+        }
+
+        private void ReloadCurrentScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        private void ResetARCoreSession()
         {
             FitToScanOverlay.SetActive(true);
             resetButton.gameObject.SetActive(false);
