@@ -131,7 +131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &26401259
 RectTransform:
   m_ObjectHideFlags: 0
@@ -250,40 +250,6 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ResetButtonClicked
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 5
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2000013466}
-          m_MethodName: ResetButtonDragged
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2000013466}
-          m_MethodName: ResetButtonClicked2
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
@@ -517,7 +483,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 203426821}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.98, y: 0, z: -1.219}
+  m_LocalPosition: {x: -1.98, y: -0.000000029802322, z: -0.9419999}
   m_LocalScale: {x: 0.10000022, y: 0.10000004, z: 4}
   m_Children: []
   m_Father: {fileID: 1465683157}
@@ -765,7 +731,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 461917757}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.036, y: 0, z: -2.8}
+  m_LocalPosition: {x: -2.036, y: -0.000000029802322, z: -2.5229998}
   m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 3}
   m_Children: []
   m_Father: {fileID: 2074111466}
@@ -850,7 +816,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 573989850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.75}
+  m_LocalPosition: {x: 0, y: 0, z: -0.473}
   m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 1}
   m_Children: []
   m_Father: {fileID: 2074111466}
@@ -1045,7 +1011,7 @@ GameObject:
   - component: {fileID: 927897555}
   - component: {fileID: 927897554}
   m_Layer: 0
-  m_Name: Hallway to dining room
+  m_Name: Forward towards entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,8 +1024,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 927897552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.027, y: -0, z: 0.75}
-  m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 4}
+  m_LocalPosition: {x: -2.168, y: 0, z: 1.3599998}
+  m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 4.6}
   m_Children: []
   m_Father: {fileID: 1248296529}
   m_RootOrder: 2
@@ -1198,91 +1164,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1029599724}
---- !u!1 &1054357383
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1054357384}
-  - component: {fileID: 1054357387}
-  - component: {fileID: 1054357386}
-  - component: {fileID: 1054357385}
-  m_Layer: 0
-  m_Name: Living room to sofa
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1054357384
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1054357383}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.28}
-  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1248296529}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1054357385
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1054357383}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1054357386
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1054357383}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: d63d9ab0d888c1e4c82e8903cb6af1c9, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1054357387
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1054357383}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1106814262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,7 +1176,7 @@ GameObject:
   - component: {fileID: 1106814265}
   - component: {fileID: 1106814264}
   m_Layer: 0
-  m_Name: Dining room to living room
+  m_Name: Right into restrooms hallway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1308,7 +1189,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1106814262}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 0, z: 2.74}
+  m_LocalPosition: {x: -1.141, y: 0, z: 3.69}
   m_LocalScale: {x: 0.10000005, y: 0.099999994, z: 2.000001}
   m_Children: []
   m_Father: {fileID: 1248296529}
@@ -1397,7 +1278,6 @@ Transform:
   - {fileID: 1278215938}
   - {fileID: 927897553}
   - {fileID: 1106814263}
-  - {fileID: 1054357384}
   m_Father: {fileID: 2123817558}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -1426,7 +1306,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1266584322}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.995, y: 0, z: -1.277}
+  m_LocalPosition: {x: -0.995, y: -0.000000029802322, z: -0.9999999}
   m_LocalScale: {x: 0.10000022, y: 0.10000004, z: 2}
   m_Children: []
   m_Father: {fileID: 2074111466}
@@ -1498,7 +1378,7 @@ GameObject:
   - component: {fileID: 1278215940}
   - component: {fileID: 1278215939}
   m_Layer: 0
-  m_Name: Chair to hallway
+  m_Name: Left to hallway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1511,8 +1391,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1278215937}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 0, z: -1.248}
-  m_LocalScale: {x: 0.10000022, y: 0.10000004, z: 2}
+  m_LocalPosition: {x: -1.141, y: -0.000000029802322, z: -0.97099996}
+  m_LocalScale: {x: 0.10000022, y: 0.10000004, z: 2.3}
   m_Children: []
   m_Father: {fileID: 1248296529}
   m_RootOrder: 1
@@ -1583,7 +1463,7 @@ GameObject:
   - component: {fileID: 1337824079}
   - component: {fileID: 1337824078}
   m_Layer: 0
-  m_Name: Computer to chair
+  m_Name: Start segment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1596,7 +1476,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1337824076}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.75}
+  m_LocalPosition: {x: 0, y: -0.000000029802322, z: -0.4729999}
   m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1248296529}
@@ -1893,7 +1773,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1210.875, y: 0}
+  m_SizeDelta: {x: -55.316833, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622737810
 MonoBehaviour:
@@ -2155,7 +2035,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1874560881}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -3.031, y: 0, z: -4.294}
+  m_LocalPosition: {x: -3.031, y: -0.000000029802322, z: -4.017}
   m_LocalScale: {x: 0.10000005, y: 0.099999994, z: 2.000001}
   m_Children: []
   m_Father: {fileID: 2074111466}
@@ -2240,7 +2120,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1956112205}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.75}
+  m_LocalPosition: {x: 0, y: -0.000000029802322, z: -0.4729999}
   m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1465683157}
@@ -2543,7 +2423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2123817558}
   m_Layer: 0
-  m_Name: LeonHomeOfficeToSofa
+  m_Name: Office_Point01_ToRestrooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
