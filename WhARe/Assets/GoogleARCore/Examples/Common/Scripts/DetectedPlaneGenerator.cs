@@ -34,7 +34,6 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public GameObject DetectedPlanePrefab;
         public GameObject ARCoreDevice;
-        private ARCoreSession arcoreSession;
 
         /// <summary>
         /// A list to hold new planes ARCore began tracking in the current frame. This object is used across
@@ -45,8 +44,6 @@ namespace GoogleARCore.Examples.Common
 
         private void Start()
         {
-            arcoreSession = ARCoreDevice.GetComponent<ARCoreSession>();
-            
         }
 
         /// <summary>

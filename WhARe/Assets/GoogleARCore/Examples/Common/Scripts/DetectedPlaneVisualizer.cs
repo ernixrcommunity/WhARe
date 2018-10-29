@@ -226,10 +226,5 @@ namespace GoogleARCore.Examples.Common
 
             return true;
         }
-
-
-
-
-
     }
 }
